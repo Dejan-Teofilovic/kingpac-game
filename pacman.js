@@ -41,6 +41,13 @@
     //          hello: function() { return "world"; },
     //      };
 
+    //  Constants
+    const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
+    const INIT_EXTRA_LIVES = 3;
+
+    var userdata = null;
+
+
     var newChildObject = function (parentObj, newObj) {
 
         // equivalent to: var resultObj = { __proto__: parentObj };
@@ -9843,11 +9850,22 @@
         var menu = new Menu("", 2 * tileSize, 0, mapWidth - 4 * tileSize, 3 * tileSize, tileSize, tileSize + "px ArcadeR", "#EEE");
 
         menu.addSpacer(2);
+
+        //  Mr.New - Start the game
         menu.addTextButton("PLAY",
             function () {
                 practiceMode = false;
                 turboMode = false;
-                newGameState.setStartLevel(1);
+
+                //  Mr.New - Set level and lives by saved userdata.
+                if (userdata.currentLives <= 0) {
+                    newGameState.setStartLevel(0);
+                    newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
+                } else {
+                    newGameState.setStartLevel(userdata.currentLevel);
+                    newGameState.setStartExtraLives(userdata.currentLives - 1);
+                }
+
                 exitTo(newGameState, 60);
             });
         // menu.addTextButton("PLAY TURBO",
@@ -10548,19 +10566,26 @@
         var frames;
         var duration = 2;
         var startLevel = 1;
+        var startExtraLives = 0;
 
         return {
             init: function () {
                 clearCheats();
                 frames = 0;
-                level = startLevel - 1;
-                extraLives = practiceMode ? Infinity : 3;
+                // level = startLevel - 1;
+                level = startLevel; // Mr.New - Set the level when the game is started.
+                // extraLives = practiceMode ? Infinity : 3;
+
+                extraLives = startExtraLives; //  Mr.New - Set the extra lives.
                 setScore(0);
                 setFruitFromGameMode();
                 readyNewState.init();
             },
             setStartLevel: function (i) {
                 startLevel = i;
+            },
+            setStartExtraLives: function (i) {
+                startExtraLives = i;
             },
             draw: function () {
                 if (!map)
@@ -13399,28 +13424,42 @@
     // Entry Point
 
     window.addEventListener("load", function () {
-        loadHighScores();
-        initRenderer();
-        atlas.create();
-        initSwipe();
-        var anchor = window.location.hash.substring(1);
-        // if (anchor == "learn") {
-        // 	switchState(learnState);
-        // }
-        // else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
-        // 	gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
-        // 	practiceMode = true;
-        //     switchState(newGameState);
-        // 	for (var i=0; i<4; i++) {
-        // 		ghosts[i].isDrawTarget = true;
-        // 		ghosts[i].isDrawPath = true;
-        // 	}
-        // }
-        // else {
-        // 	switchState(homeState);
-        // }
-        switchState(preNewGameState);
-        executive.init();
+        //  Mr.New - Open window
+        console.log('# load event');
+        this.localStorage.setItem(LOCALSTORAGE_USERDATA, JSON.stringify({
+            telegramUsername: 'admin',
+            twitterUsername: 'admin',
+            currentLives: 0,
+            currentLevel: 0
+        }));
+        if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
+            userdata = JSON.parse(this.localStorage.getItem(LOCALSTORAGE_USERDATA));
+            level = 5;
+            loadHighScores();
+            initRenderer();
+            atlas.create();
+            initSwipe();
+            var anchor = window.location.hash.substring(1);
+            // if (anchor == "learn") {
+            // 	switchState(learnState);
+            // }
+            // else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
+            // 	gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
+            // 	practiceMode = true;
+            //     switchState(newGameState);
+            // 	for (var i=0; i<4; i++) {
+            // 		ghosts[i].isDrawTarget = true;
+            // 		ghosts[i].isDrawPath = true;
+            // 	}
+            // }
+            // else {
+            // 	switchState(homeState);
+            // }
+            switchState(preNewGameState);
+            executive.init();
+        } else {
+            this.window.location.replace('https://kingpactoken.com');
+        }
     });
 
     //  Mr.New - Before closing the current tab or window
@@ -13428,6 +13467,7 @@
         e.preventDefault();
         console.log('# extralives => ', extraLives);
         console.log('# level => ', level);
+        this.localStorage.removeItem(LOCALSTORAGE_USERDATA);
 
         //  Mr.New - Submit current level and extralives.
         //  ...
