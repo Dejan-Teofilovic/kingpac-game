@@ -13426,7 +13426,7 @@
     window.addEventListener("load", function () {
         //  Mr.New - Open window
         console.log('# load event');
-        this.window.resizeTo(2532, 1170);
+        this.window.resizeTo(1170, 2532);
         this.localStorage.setItem(LOCALSTORAGE_USERDATA, JSON.stringify({
             telegramUsername: 'admin',
             twitterUsername: 'admin',
