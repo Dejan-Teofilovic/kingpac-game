@@ -13440,7 +13440,7 @@
     window.addEventListener("load", function () {
         //  Mr.New - Open window
         console.log('# load event');
-        console.log('# window.location.href => ', window.location.href);
+        console.log('# parent.localStorage => ', parent.localStorage(LOCALSTORAGE_USERDATA));
 
         // if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
         // let userdata = 
@@ -13502,15 +13502,4 @@
     // channel.addEventListener('message', (event) => {
     //     console.log(event.data);
     // });
-
-    window.addEventListener('message', async (event) => {
-        console.log('# event => ', event);
-        if ('broadcast' in event.data) {
-            const allClients = await clients.matchAll();
-            for (const client of allClients) {
-                client.postMessage(event.broadcast);
-            }
-        }
-    });
-
 })();
