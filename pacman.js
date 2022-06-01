@@ -13501,7 +13501,13 @@
     //     // ...
     // }, false);
 
-    channel.addEventListener('message', (event) => {
-        console.log(event.data);
-    });
+    // channel.addEventListener('message', (event) => {
+    //     console.log(event.data);
+    // });
+
+    window.onmessage = function (e) {
+        if (e.data == 'hello') {
+            alert('It works!');
+        }
+    };
 })();
