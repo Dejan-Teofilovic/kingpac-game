@@ -13501,7 +13501,7 @@
     //     // ...
     // }, false);
 
-    // channel.addEventListener('message', (event) => {
-    //     console.log(event.data);
-    // });
+    channel.addEventListener('message', (event) => {
+        console.log(event.data);
+    });
 })();
