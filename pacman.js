@@ -13427,12 +13427,12 @@
     var parseJwt = token => {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
 
         return JSON.parse(jsonPayload);
-    }
+    };
 
     window.addEventListener("load", function () {
         //  Mr.New - Open window
@@ -13440,31 +13440,31 @@
         console.log('# window.location.href => ', window.location.href);
 
         // if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
-            // let userdata = 
-            // console.log('# userdata => ', userdata);
-            level = 5;
-            loadHighScores();
-            initRenderer();
-            atlas.create();
-            initSwipe();
-            // var anchor = window.location.hash.substring(1);
-            // if (anchor == "learn") {
-            // 	switchState(learnState);
-            // }
-            // else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
-            // 	gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
-            // 	practiceMode = true;
-            //     switchState(newGameState);
-            // 	for (var i=0; i<4; i++) {
-            // 		ghosts[i].isDrawTarget = true;
-            // 		ghosts[i].isDrawPath = true;
-            // 	}
-            // }
-            // else {
-            // 	switchState(homeState);
-            // }
-            switchState(preNewGameState);
-            executive.init();
+        // let userdata = 
+        // console.log('# userdata => ', userdata);
+        level = 5;
+        loadHighScores();
+        initRenderer();
+        atlas.create();
+        initSwipe();
+        // var anchor = window.location.hash.substring(1);
+        // if (anchor == "learn") {
+        // 	switchState(learnState);
+        // }
+        // else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
+        // 	gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
+        // 	practiceMode = true;
+        //     switchState(newGameState);
+        // 	for (var i=0; i<4; i++) {
+        // 		ghosts[i].isDrawTarget = true;
+        // 		ghosts[i].isDrawPath = true;
+        // 	}
+        // }
+        // else {
+        // 	switchState(homeState);
+        // }
+        switchState(preNewGameState);
+        executive.init();
         // } else {
         //     this.window.location.replace(URL_OF_SITE);
         // }
@@ -13482,5 +13482,17 @@
 
         e.returnValue = '';
     });
+
+    //  Mr.New - Receive message from the site
+    window.addEventListener("message", (event) => {
+        if (event.origin !== URL_OF_SITE) {
+            console.log('event.origin !== URL_OF_SITE');
+            return;
+        } else {
+            console.log('# event.data => ', event.data);
+            console.log('# event.source => ', event.source);
+        }
+        // ...
+    }, false);
 
 })();
