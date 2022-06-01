@@ -13485,6 +13485,7 @@
 
     //  Mr.New - Receive message from the site
     window.addEventListener("message", (event) => {
+        console.log('# event => ', event);
         if (event.origin !== URL_OF_SITE) {
             console.log('event.origin !== URL_OF_SITE');
             return;
