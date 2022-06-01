@@ -1,8 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
-
+  <head>
     <title>Pac-Man</title>
 
     <!-- Lock viewport on mobile devices. -->
@@ -14,43 +12,48 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <!-- Hide status bar -->
-    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      names="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
     <!-- icon used for iOS Web App -->
-    <link rel="apple-touch-icon-precomposed" href="icon/ios_icon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="icon/ios_icon.png" />
 
-    <link rel="icon" type="image/png" href="icon/favicon.png"/>
+    <link rel="icon" type="image/png" href="icon/favicon.png" />
 
     <style>
-        body {
-            margin:0;
-            background: #000;
-            height: 100vh;
-            overflow: hidden;
-        }
-        @font-face {
-            font-family: 'ArcadeR';
-            src: url('font/ARCADE_R.TTF');
-            /*
+      body {
+        margin: 0;
+        background: #000;
+        height: 100vh;
+        overflow: hidden;
+      }
+      @font-face {
+        font-family: "ArcadeR";
+        src: url("font/ARCADE_R.TTF");
+        /*
             src: url('font/PressStart2P.ttf');
             */
-        }
-        #canvas-warning {
-            color: #FF0;
-            font-size: 1.5em;
-            height: 100vh;
-            overflow: hidden;
-        }
+      }
+      #canvas-warning {
+        color: #ff0;
+        font-size: 1.5em;
+        height: 100vh;
+        overflow: hidden;
+      }
     </style>
-
+    <!-- <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.cjs.js"></script> -->
     <script src="pacman.js"></script>
+  </head>
 
-</head>
-
-<body>
-    <div style='font-family: ArcadeR'> </div>
-    <canvas id='canvas'><div id="canvas-warning">Your browser does not support HTML Canvas.  Please upgrade!</div></canvas>
-    <canvas id='atlas' style="display:none"></canvas>
-</body>
-
+  <body>
+    <div style="font-family: ArcadeR"></div>
+    <canvas id="canvas"
+      ><div id="canvas-warning">
+        Your browser does not support HTML Canvas. Please upgrade!
+      </div></canvas
+    >
+    <canvas id="atlas" style="display: none"></canvas>
+  </body>
 </html>

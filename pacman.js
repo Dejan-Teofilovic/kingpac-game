@@ -44,6 +44,7 @@
     //  Constants
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
+    const URL_OF_SITE = 'https://kingpactoken.com';
 
     var userdata = null;
 
@@ -13423,23 +13424,30 @@
     //////////////////////////////////////////////////////////////////////////////////////
     // Entry Point
 
+    var parseJwt = token => {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+
     window.addEventListener("load", function () {
         //  Mr.New - Open window
         console.log('# load event');
-        this.localStorage.setItem(LOCALSTORAGE_USERDATA, JSON.stringify({
-            telegramUsername: 'admin',
-            twitterUsername: 'admin',
-            currentLives: 0,
-            currentLevel: 0
-        }));
-        if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
-            userdata = JSON.parse(this.localStorage.getItem(LOCALSTORAGE_USERDATA));
+        console.log('# window.location.href => ', window.location.href);
+
+        // if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
+            // let userdata = 
+            // console.log('# userdata => ', userdata);
             level = 5;
             loadHighScores();
             initRenderer();
             atlas.create();
             initSwipe();
-            var anchor = window.location.hash.substring(1);
+            // var anchor = window.location.hash.substring(1);
             // if (anchor == "learn") {
             // 	switchState(learnState);
             // }
@@ -13457,9 +13465,9 @@
             // }
             switchState(preNewGameState);
             executive.init();
-        } else {
-            this.window.location.replace('https://kingpactoken.com');
-        }
+        // } else {
+        //     this.window.location.replace(URL_OF_SITE);
+        // }
     });
 
     //  Mr.New - Before closing the current tab or window
