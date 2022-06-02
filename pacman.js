@@ -9865,6 +9865,8 @@
 
                 //  Mr.New - Set level and lives by saved userdata.
                 console.log('# userdata => ', userdata);
+
+                //  Check whether a user has lives or not
                 if (userdata.currentLives <= 0) {
                     newGameState.setStartLevel(0);
                     newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
@@ -9872,7 +9874,6 @@
                     newGameState.setStartLevel(userdata.currentLevel);
                     newGameState.setStartExtraLives(userdata.currentLives);
                 }
-
                 exitTo(newGameState, 60);
             });
         // menu.addTextButton("PLAY TURBO",
