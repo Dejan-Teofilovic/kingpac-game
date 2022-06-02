@@ -11066,11 +11066,20 @@
                     console.log('# gameoverExtraLives => ', extraLives);
                     console.log('# gameoverLevel => ', level);
 
+                    //  Mr.New -  Submit the current game info to backend
+                    let requestOptions = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            currentLives: extraLives,
+                            currentLevel: level - 1
+                        })
+                    };
+                    await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
+
                     //  Mr.New -  Init the lives and level
                     userdata.currentLives = 0;
                     userdata.currentLevel = INIT_EXTRA_LIVES;
-                    // newGameState.setStartLevel(1);
-                    // newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
 
                     switchState(preNewGameState, 60);
                 }
