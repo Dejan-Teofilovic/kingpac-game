@@ -13493,6 +13493,7 @@
         console.log('# event => ', event);
         if (event.origin !== URL_OF_SITE) {
             console.log('event.origin !== URL_OF_SITE');
+            console.log('# event.data => ', event.data);
             return;
         } else {
             console.log('# event.data => ', event.data);
@@ -13505,9 +13506,9 @@
     //     console.log(event.data);
     // });
 
-    // window.onmessage = function (e) {
-    //     if (e.data == 'hello') {
-    //         alert('It works!');
-    //     }
-    // };
+    window.onmessage = function (e) {
+        if (e.data == 'hello') {
+            alert('It works!');
+        }
+    };
 })();
