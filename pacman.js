@@ -11067,8 +11067,10 @@
                     console.log('# gameoverLevel => ', level);
 
                     //  Mr.New -  Init the lives and level
-                    newGameState.setStartLevel(1);
-                    newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
+                    userdata.currentLives = 0;
+                    userdata.currentLevel = INIT_EXTRA_LIVES;
+                    // newGameState.setStartLevel(1);
+                    // newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
 
                     switchState(preNewGameState, 60);
                 }
