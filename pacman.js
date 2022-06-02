@@ -47,6 +47,9 @@
     const URL_OF_SITE = 'https://kingpactoken.com';
     const URL_OF_BACKEND = 'https://localhost:5000/api';
     const CHANNEL_NAME = 'kingpac';
+    const SCAN_API_KEY = 'MQPQP1JFJXGA72RYM5SRSR45YBDBZ7ADXX';
+    const TOKEN_CONTRACT_ADDRESS = '0xe705c3f34bbf38e1e298b65a7668fd5d9cdc0816';
+    const TOKEN_AMOUNT = 1000000;
 
     var userdata = null;
 
@@ -13452,15 +13455,30 @@
 
             //  Check whether the access token is expired or not.
             let currentTime = Date.now() / 1000;
-            // if (decoded.exp < currentTime) {
-            //     window.location.href = URL_OF_SITE;
-            // } else {
-            //     let decode = await (await fetch(`${URL_OF_BACKEND}/getUserdataFromAccessToken/${accessToken}`)).json();
-            //     console.log('# _userdata => ', _userdata);
-            // }
-            // if (authToken) {
-            //     localStorage.authToken = authToken;
-            // }
+            if (decoded.exp < currentTime) {
+                //  If expired, redirect to the site
+                window.location.href = URL_OF_SITE;
+            } else {
+                userdata = decoded.userdata;
+                let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
+
+                let balance = Number(result);
+
+                //  Check whether current token balance is enough or not.
+                if (balance < TOKEN_AMOUNT) {
+                    userdata.balance = balance;
+
+                    level = 5;
+                    loadHighScores();
+                    initRenderer();
+                    atlas.create();
+                    initSwipe();
+                    switchState(preNewGameState);
+                    executive.init();
+                } else {
+                    window.location.href = URL_OF_SITE;
+                }
+            }
         }
         // console.log('# this.localStorage => ', this.localStorage.getItem(LOCALSTORAGE_USERDATA));
         // console.log('# top.localStorage => ', this.window.top.localStorage.getItem(LOCALSTORAGE_USERDATA));
@@ -13469,11 +13487,7 @@
         // if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
         // let userdata = 
         // console.log('# userdata => ', userdata);
-        level = 5;
-        loadHighScores();
-        initRenderer();
-        atlas.create();
-        initSwipe();
+
         // var anchor = window.location.hash.substring(1);
         // if (anchor == "learn") {
         // 	switchState(learnState);
@@ -13490,8 +13504,7 @@
         // else {
         // 	switchState(homeState);
         // }
-        switchState(preNewGameState);
-        executive.init();
+
         // } else {
         //     this.window.location.replace(URL_OF_SITE);
         // }
