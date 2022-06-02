@@ -9864,6 +9864,7 @@
                 turboMode = false;
 
                 //  Mr.New - Set level and lives by saved userdata.
+                console.log('# userdata => ', userdata);
                 if (userdata.currentLives <= 0) {
                     newGameState.setStartLevel(0);
                     newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
@@ -13461,6 +13462,7 @@
             } else {
                 userdata = decoded.userdata;
                 console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
+                //  Get current balance of token
                 let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
 
                 let balance = Number(result);
