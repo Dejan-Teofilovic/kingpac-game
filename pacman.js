@@ -11048,7 +11048,7 @@
                 renderer.drawScore();
                 renderer.drawMessage("GAME  OVER", "#F00", 9, 20);
             },
-            update: function () {
+            update: async function () {
                 if (frames == 120) {
 
                     //  Mr.New - Game over.
