@@ -13440,6 +13440,15 @@
     window.addEventListener("load", function () {
         //  Mr.New - Open window
         console.log('# load event');
+        let paramsMatch = window.location.href.match(/\?.+/);
+        if (paramsMatch) {
+            let params = new URLSearchParams(paramsMatch[0]);
+            let accessToken = params.get('access_token');
+            console.log('# accessToken => ', accessToken);
+            // if (authToken) {
+            //     localStorage.authToken = authToken;
+            // }
+        }
         // console.log('# this.localStorage => ', this.localStorage.getItem(LOCALSTORAGE_USERDATA));
         // console.log('# top.localStorage => ', this.window.top.localStorage.getItem(LOCALSTORAGE_USERDATA));
 
@@ -13502,14 +13511,14 @@
         // ...
     }, false);
 
-    channel.addEventListener('message', (event) => {
-        console.log(event.data);
-    });
+    // channel.addEventListener('message', (event) => {
+    //     console.log(event.data);
+    // });
 
-    window.onmessage = function (e) {
-        console.log('# e => ', e);
-        if (e.data == 'hello') {
-            alert('It works!');
-        }
-    };
+    // window.onmessage = function (e) {
+    //     console.log('# e => ', e);
+    //     if (e.data == 'hello') {
+    //         alert('It works!');
+    //     }
+    // };
 })();
