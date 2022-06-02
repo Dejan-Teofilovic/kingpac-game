@@ -13437,7 +13437,7 @@
         return JSON.parse(jsonPayload);
     };
 
-    window.addEventListener("load", function () {
+    window.addEventListener("load", async () => {
         //  Mr.New - Open window
         console.log('# load event');
         let paramsMatch = window.location.href.match(/\?.+/);
@@ -13445,6 +13445,8 @@
             let params = new URLSearchParams(paramsMatch[0]);
             let accessToken = params.get('access_token');
             console.log('# accessToken => ', accessToken);
+            let _userdata = await parseJwt(accessToken);
+            console.log('# _userdata => ', _userdata);
             // if (authToken) {
             //     localStorage.authToken = authToken;
             // }
@@ -13496,29 +13498,4 @@
 
         e.returnValue = '';
     });
-
-    //  Mr.New - Receive message from the site
-    window.addEventListener("message", (event) => {
-        console.log('# event => ', event);
-        if (event.origin !== URL_OF_SITE) {
-            console.log('event.origin !== URL_OF_SITE');
-            console.log('# event.data => ', event.data);
-            return;
-        } else {
-            console.log('# event.data => ', event.data);
-            console.log('# event.source => ', event.source);
-        }
-        // ...
-    }, false);
-
-    // channel.addEventListener('message', (event) => {
-    //     console.log(event.data);
-    // });
-
-    // window.onmessage = function (e) {
-    //     console.log('# e => ', e);
-    //     if (e.data == 'hello') {
-    //         alert('It works!');
-    //     }
-    // };
 })();
