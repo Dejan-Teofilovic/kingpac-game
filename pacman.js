@@ -11076,16 +11076,18 @@
                     formData.append('currentLives', extraLives);
                     formData.append('currentLevel', level - 1);
 
-                    let requestOptions = {
-                        method: 'POST',
-                        // headers: { 'Content-Type': 'application/json' },
-                        body: formData
-                    };
-                    fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions)
-                        .then(response => response.json())
-                        .then(data => {
-                            switchState(preNewGameState, 60);
-                        });
+                    // let requestOptions = {
+                    //     method: 'POST',
+                    //     // headers: { 'Content-Type': 'application/json' },
+                    //     body: formData
+                    // };
+                    // fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions)
+                    //     .then(response => response.json())
+                    //     .then(data => {
+                    //         switchState(preNewGameState, 60);
+                    //     });
+
+                    fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`);
                 }
                 else {
                     frames++;
