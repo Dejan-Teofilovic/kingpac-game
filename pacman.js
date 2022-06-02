@@ -45,7 +45,7 @@
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
     const URL_OF_SITE = 'https://kingpactoken.com';
-    const URL_OF_BACKEND = 'https://localhost:5000/api';
+    const URL_OF_BACKEND = 'http://localhost:5000/api';
     const CHANNEL_NAME = 'kingpac';
     const SCAN_API_KEY = 'MQPQP1JFJXGA72RYM5SRSR45YBDBZ7ADXX';
     const TOKEN_CONTRACT_ADDRESS = '0xe705c3f34bbf38e1e298b65a7668fd5d9cdc0816';
