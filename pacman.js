@@ -11066,7 +11066,7 @@
                     };
 
                     //  Mr.New -  Submit the current game data
-                    await fetch(`${URL_OF_BACKEND}/${userdata.idGameData}`, requestOptions);
+                    await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
 
                     //  Mr.New -  Init the lives and level
                     newGameState.setStartLevel(1);
