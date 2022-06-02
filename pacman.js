@@ -45,7 +45,7 @@
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
     const URL_OF_SITE = 'https://kingpactoken.com';
-    const URL_OF_BACKEND = 'http://localhost:5000/api';
+    const URL_OF_BACKEND = 'https://localhost:5000/api';
     const CHANNEL_NAME = 'kingpac';
     const SCAN_API_KEY = 'MQPQP1JFJXGA72RYM5SRSR45YBDBZ7ADXX';
     const TOKEN_CONTRACT_ADDRESS = '0xe705c3f34bbf38e1e298b65a7668fd5d9cdc0816';
@@ -11059,12 +11059,16 @@
                 renderer.drawScore();
                 renderer.drawMessage("GAME  OVER", "#F00", 9, 20);
             },
-            update: async function () {
+            update: function () {
                 if (frames == 120) {
 
                     //  Mr.New - Game over.
                     console.log('# gameoverExtraLives => ', extraLives);
                     console.log('# gameoverLevel => ', level);
+
+                    //  Mr.New -  Init the lives and level
+                    userdata.currentLives = 0;
+                    userdata.currentLevel = 1;
 
                     //  Mr.New -  Submit the current game info to backend
                     let requestOptions = {
@@ -11075,13 +11079,11 @@
                             currentLevel: level - 1
                         })
                     };
-                    await fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/l`);
-
-                    //  Mr.New -  Init the lives and level
-                    userdata.currentLives = 0;
-                    userdata.currentLevel = 1;
-
-                    switchState(preNewGameState, 60);
+                    fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions)
+                        .then(response => response.json())
+                        .then(data => {
+                            switchState(preNewGameState, 60);
+                        });
                 }
                 else {
                     frames++;
