@@ -11075,11 +11075,11 @@
                             currentLevel: level - 1
                         })
                     };
-                    await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
+                    await fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/l`);
 
                     //  Mr.New -  Init the lives and level
                     userdata.currentLives = 0;
-                    userdata.currentLevel = INIT_EXTRA_LIVES;
+                    userdata.currentLevel = 1;
 
                     switchState(preNewGameState, 60);
                 }
