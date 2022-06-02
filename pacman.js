@@ -13489,25 +13489,25 @@
     });
 
     //  Mr.New - Receive message from the site
-    // window.addEventListener("message", (event) => {
-    //     console.log('# event => ', event);
-    //     if (event.origin !== URL_OF_SITE) {
-    //         console.log('event.origin !== URL_OF_SITE');
-    //         return;
-    //     } else {
-    //         console.log('# event.data => ', event.data);
-    //         console.log('# event.source => ', event.source);
-    //     }
-    //     // ...
-    // }, false);
+    window.addEventListener("message", (event) => {
+        console.log('# event => ', event);
+        if (event.origin !== URL_OF_SITE) {
+            console.log('event.origin !== URL_OF_SITE');
+            return;
+        } else {
+            console.log('# event.data => ', event.data);
+            console.log('# event.source => ', event.source);
+        }
+        // ...
+    }, false);
 
     // channel.addEventListener('message', (event) => {
     //     console.log(event.data);
     // });
 
-    window.onmessage = function (e) {
-        if (e.data == 'hello') {
-            alert('It works!');
-        }
-    };
+    // window.onmessage = function (e) {
+    //     if (e.data == 'hello') {
+    //         alert('It works!');
+    //     }
+    // };
 })();
