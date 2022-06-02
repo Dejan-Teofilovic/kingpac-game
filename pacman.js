@@ -45,6 +45,7 @@
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
     const URL_OF_SITE = 'https://kingpactoken.com';
+    const URL_OF_BACKEND = 'https://localhost:5000/api';
     const CHANNEL_NAME = 'kingpac';
 
     var userdata = null;
@@ -13440,11 +13441,23 @@
         console.log('# load event');
         let paramsMatch = window.location.href.match(/\?.+/);
         if (paramsMatch) {
+            //  Get access token
             let params = new URLSearchParams(paramsMatch[0]);
             let accessToken = params.get('access_token');
             console.log('# accessToken => ', accessToken);
-            let _userdata = await parseJwt(accessToken);
-            console.log('# _userdata => ', _userdata);
+
+            //  Decode the access token
+            let decoded = await parseJwt(accessToken);
+            console.log('# decoded => ', decoded);
+
+            //  Check whether the access token is expired or not.
+            let currentTime = Date.now() / 1000;
+            // if (decoded.exp < currentTime) {
+            //     window.location.href = URL_OF_SITE;
+            // } else {
+            //     let decode = await (await fetch(`${URL_OF_BACKEND}/getUserdataFromAccessToken/${accessToken}`)).json();
+            //     console.log('# _userdata => ', _userdata);
+            // }
             // if (authToken) {
             //     localStorage.authToken = authToken;
             // }
