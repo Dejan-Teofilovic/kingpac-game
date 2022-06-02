@@ -47,8 +47,6 @@
     const URL_OF_SITE = 'https://kingpactoken.com';
     const CHANNEL_NAME = 'kingpac';
 
-    const jwtDecode = require('jwt-decode');
-
     var userdata = null;
 
 
@@ -13427,6 +13425,16 @@
     //////////////////////////////////////////////////////////////////////////////////////
     // Entry Point
 
+    var parseJwt = token => {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    };
+
     window.addEventListener("load", async () => {
         //  Mr.New - Open window
         console.log('# load event');
@@ -13434,9 +13442,9 @@
         if (paramsMatch) {
             let params = new URLSearchParams(paramsMatch[0]);
             let accessToken = params.get('access_token');
-            let decoded = jwt_decode(accessToken)
-            console.log('# accessToken => ', decoded);
-            
+            console.log('# accessToken => ', accessToken);
+            let _userdata = await parseJwt(accessToken);
+            console.log('# _userdata => ', _userdata);
             // if (authToken) {
             //     localStorage.authToken = authToken;
             // }
