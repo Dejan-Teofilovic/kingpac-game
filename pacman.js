@@ -13440,7 +13440,6 @@
     window.addEventListener("load", function () {
         //  Mr.New - Open window
         console.log('# load event');
-        console.log('# top.localStorage => ', top.localStorage.getItem(LOCALSTORAGE_USERDATA));
         // console.log('# this.localStorage => ', this.localStorage.getItem(LOCALSTORAGE_USERDATA));
         // console.log('# top.localStorage => ', top.localStorage.getItem(LOCALSTORAGE_USERDATA));
 
