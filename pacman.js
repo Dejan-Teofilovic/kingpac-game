@@ -11087,7 +11087,7 @@
                     //         switchState(preNewGameState, 60);
                     //     });
 
-                    fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`);
+                    fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${userdata.idGameData}`);
                 }
                 else {
                     frames++;
