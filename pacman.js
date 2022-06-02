@@ -11039,6 +11039,17 @@
 
     var overState = (function () {
         var frames;
+        //  Mr.New -  Submit the current game info to backend
+        // let requestOptions = {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({
+        //         currentLives: extraLives,
+        //         currentLevel: level - 1
+        //     })
+        // };
+        // await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
+
         return {
             init: function () {
                 frames = 0;
@@ -11054,19 +11065,6 @@
                     //  Mr.New - Game over.
                     console.log('# gameoverExtraLives => ', extraLives);
                     console.log('# gameoverLevel => ', level);
-
-                    //  Mr.New -  Submit the current game info to backend
-                    let requestOptions = {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            currentLives: extraLives,
-                            currentLevel: level - 1
-                        })
-                    };
-
-                    //  Mr.New -  Submit the current game data
-                    await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
 
                     //  Mr.New -  Init the lives and level
                     newGameState.setStartLevel(1);
