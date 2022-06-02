@@ -11071,15 +11071,17 @@
                     userdata.currentLevel = 1;
 
                     //  Mr.New -  Submit the current game info to backend
+                    let formData = new FormData();
+                    formData.append('idGameData', userdata.idGameData);
+                    formData.append('currentLives', extraLives);
+                    formData.append('currentLevel', level - 1);
+
                     let requestOptions = {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            currentLives: extraLives,
-                            currentLevel: level - 1
-                        })
+                        method: 'POST',
+                        // headers: { 'Content-Type': 'application/json' },
+                        body: formData
                     };
-                    fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions)
+                    fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions)
                         .then(response => response.json())
                         .then(data => {
                             switchState(preNewGameState, 60);
