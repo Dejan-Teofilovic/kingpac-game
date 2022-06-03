@@ -11063,7 +11063,7 @@
                             currentLevel: level,
                             currentLives: 0
                         }).then(response => {
-                            console.log('# response => ', response);
+                            console.log('# gameover response => ', response);
                             userdata.currentLevel = level;
                         }).catch(error => {
                             console.log(error);
@@ -13508,15 +13508,18 @@
         console.log('# extralives => ', extraLives);
         console.log('# level => ', level);
 
-        axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
-            idGameData: userdata.idGameData,
-            currentLevel: level,
-            currentLives: extraLives + 1
-        }).then(response => {
-            console.log('# response => ', response);
-        }).catch(error => {
-            console.log(error);
-        });
+        if (userdata.currentLevel < level) {
+            axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                idGameData: userdata.idGameData,
+                currentLevel: level,
+                currentLives: extraLives + 1
+            }).then(response => {
+                console.log('# beforeunload response => ', response);
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+
 
         //  Mr.New - Submit current level and extralives.
         //  ...
