@@ -11064,6 +11064,7 @@
                             currentLives: 0
                         }).then(response => {
                             console.log('# response => ', response);
+                            userdata.currentLevel = level;
                         }).catch(error => {
                             console.log(error);
                         });
