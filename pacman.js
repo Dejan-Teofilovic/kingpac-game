@@ -13508,23 +13508,6 @@
         console.log('# extralives => ', extraLives);
         console.log('# level => ', level);
 
-        // if (userdata.currentLevel < level) {
-        //     axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
-        //         idGameData: userdata.idGameData,
-        //         currentLevel: level,
-        //         currentLives: extraLives + 1
-        //     }).then(response => {
-        //         console.log('# beforeunload response => ', response);
-        //     }).catch(error => {
-        //         console.log(error);
-        //     });
-        // }
-
-
-        //  Mr.New - Submit current level and extralives.
-        //  ...
-
-
-        e.returnValue = '';
+        e.returnValue = "Your current data won't be stored. Are you gonna really leave this site?";
     });
 })();
