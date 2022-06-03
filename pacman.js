@@ -44,8 +44,8 @@
     //  Constants
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
-    const URL_OF_SITE = 'https://kingpactoken.com';
-    const URL_OF_BACKEND = 'http://194.31.150.180/api';
+    const URL_OF_SITE = 'http://kingpactoken.com';
+    const URL_OF_BACKEND = 'http://kingpactoken.com/api';
     const CHANNEL_NAME = 'kingpac';
     const SCAN_API_KEY = 'MQPQP1JFJXGA72RYM5SRSR45YBDBZ7ADXX';
     const TOKEN_CONTRACT_ADDRESS = '0xe705c3f34bbf38e1e298b65a7668fd5d9cdc0816';
@@ -11059,7 +11059,7 @@
                 renderer.drawScore();
                 renderer.drawMessage("GAME  OVER", "#F00", 9, 20);
             },
-            update: function () {
+            update: async function () {
                 if (frames == 120) {
 
                     //  Mr.New - Game over.
@@ -11071,23 +11071,21 @@
                     userdata.currentLevel = 1;
 
                     //  Mr.New -  Submit the current game info to backend
-                    let formData = new FormData();
-                    formData.append('idGameData', userdata.idGameData);
-                    formData.append('currentLives', extraLives);
-                    formData.append('currentLevel', level - 1);
+                    if (userdata.currentLevel < level - 1) {
+                        let formData = new FormData();
+                        formData.append('idGameData', userdata.idGameData);
+                        formData.append('currentLives', extraLives);
+                        formData.append('currentLevel', level - 1);
 
-                    // let requestOptions = {
-                    //     method: 'POST',
-                    //     // headers: { 'Content-Type': 'application/json' },
-                    //     body: formData
-                    // };
-                    // fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions)
-                    //     .then(response => response.json())
-                    //     .then(data => {
-                    //         switchState(preNewGameState, 60);
-                    //     });
+                        let requestOptions = {
+                            method: 'POST',
+                            // headers: { 'Content-Type': 'application/json' },
+                            body: formData
+                        };
+                        await fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions)
+                    } 
+                    switchState(preNewGameState, 60);
 
-                    fetch(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${userdata.idGameData}`);
                 }
                 else {
                     frames++;
