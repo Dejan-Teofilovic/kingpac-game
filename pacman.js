@@ -11049,20 +11049,7 @@
         //     })
         // };
         // await fetch(`${URL_OF_BACKEND}/game/saveGameData/${userdata.idGameData}`, requestOptions);
-        //  Mr.New - Game over.
-        console.log('# gameoverExtraLives => ', extraLives);
-        console.log('# gameoverLevel => ', level);
-        console.log('# axios => ', axios);
 
-        userdata.currentLives = 0;
-
-        if (userdata.currentLevel < level) {
-            await axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
-                idGameData: userdata.idGameData,
-                currentLives: 0,
-                currentLevel: level
-            });
-        }
 
         return {
             init: function () {
@@ -11076,28 +11063,20 @@
             update: async function () {
                 if (frames == 120) {
                     //  Mr.New - Game over.
-                    // console.log('# gameoverExtraLives => ', extraLives);
-                    // console.log('# gameoverLevel => ', level);
+                    console.log('# gameoverExtraLives => ', extraLives);
+                    console.log('# gameoverLevel => ', level);
+                    console.log('# axios => ', axios);
 
-                    //  Mr.New -  Init the lives and level
-                    // userdata.currentLives = 0;
+                    userdata.currentLives = 0;
 
-                    //  Mr.New -  Submit the current game info to backend
-                    // if (userdata.currentLevel < level - 1) {
-                        // let formData = new FormData();
-                        // formData.append('idGameData', userdata.idGameData);
-                        // formData.append('currentLives', extraLives);
-                        // formData.append('currentLevel', level - 1);
-
-                        // let requestOptions = {
-                        //     method: 'POST',
-                        //     // headers: { 'Content-Type': 'application/json' },
-                        //     body: formData
-                        // };
-                        // await fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions);
-                    // }
+                    if (userdata.currentLevel < level) {
+                        // await axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                        //     idGameData: userdata.idGameData,
+                        //     currentLives: 0,
+                        //     currentLevel: level
+                        // });
+                    }
                     switchState(preNewGameState, 60);
-
                 }
                 else {
                     frames++;
