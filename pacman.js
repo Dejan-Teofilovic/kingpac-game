@@ -11039,6 +11039,7 @@
 
     var overState = (function () {
         var frames;
+
         return {
             init: function () {
                 frames = 0;
@@ -11048,12 +11049,12 @@
                 renderer.drawScore();
                 renderer.drawMessage("GAME  OVER", "#F00", 9, 20);
             },
-            update: function () {
+            update: async function () {
                 if (frames == 120) {
-
                     //  Mr.New - Game over.
                     console.log('# gameoverExtraLives => ', extraLives);
                     console.log('# gameoverLevel => ', level);
+                    console.log('# axios => ', axios);
 
                     //  Mr.New -  Submit the current game data
                     if (userdata.currentLevel < level) {
@@ -11063,12 +11064,7 @@
                             currentLives: 0
                         });
                     }
-
                     userdata.currentLives = 0;
-
-                    //  Mr.New -  Init the lives and level
-                    // newGameState.setStartLevel(1);
-                    // newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
 
                     switchState(preNewGameState, 60);
                 }
@@ -13499,34 +13495,6 @@
                 }
             }
         }
-        // console.log('# this.localStorage => ', this.localStorage.getItem(LOCALSTORAGE_USERDATA));
-        // console.log('# top.localStorage => ', this.window.top.localStorage.getItem(LOCALSTORAGE_USERDATA));
-
-
-        // if (this.localStorage.getItem(LOCALSTORAGE_USERDATA)) {
-        // let userdata = 
-        // console.log('# userdata => ', userdata);
-
-        // var anchor = window.location.hash.substring(1);
-        // if (anchor == "learn") {
-        // 	switchState(learnState);
-        // }
-        // else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
-        // 	gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
-        // 	practiceMode = true;
-        //     switchState(newGameState);
-        // 	for (var i=0; i<4; i++) {
-        // 		ghosts[i].isDrawTarget = true;
-        // 		ghosts[i].isDrawPath = true;
-        // 	}
-        // }
-        // else {
-        // 	switchState(homeState);
-        // }
-
-        // } else {
-        //     this.window.location.replace(URL_OF_SITE);
-        // }
     });
 
     //  Mr.New - Before closing the current tab or window
