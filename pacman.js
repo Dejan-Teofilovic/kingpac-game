@@ -11052,6 +11052,7 @@
         //  Mr.New - Game over.
         console.log('# gameoverExtraLives => ', extraLives);
         console.log('# gameoverLevel => ', level);
+        console.log('# axios => ', axios);
 
         userdata.currentLives = 0;
 
