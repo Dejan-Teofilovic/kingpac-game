@@ -11037,7 +11037,7 @@
     // Game Over state
     // (state when player has lost last life)
 
-    var overState = (function () {
+    var overState = (async function () {
         var frames;
         //  Mr.New -  Submit the current game info to backend
         // let requestOptions = {
@@ -11053,6 +11053,16 @@
         console.log('# gameoverExtraLives => ', extraLives);
         console.log('# gameoverLevel => ', level);
 
+        userdata.currentLives = 0;
+
+        if (userdata.currentLevel < level) {
+            await axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                idGameData: userdata.idGameData,
+                currentLives: 0,
+                currentLevel: level
+            });
+        }
+
         return {
             init: function () {
                 frames = 0;
@@ -11065,14 +11075,14 @@
             update: async function () {
                 if (frames == 120) {
                     //  Mr.New - Game over.
-                    console.log('# gameoverExtraLives => ', extraLives);
-                    console.log('# gameoverLevel => ', level);
+                    // console.log('# gameoverExtraLives => ', extraLives);
+                    // console.log('# gameoverLevel => ', level);
 
                     //  Mr.New -  Init the lives and level
-                    userdata.currentLives = 0;
+                    // userdata.currentLives = 0;
 
                     //  Mr.New -  Submit the current game info to backend
-                    if (userdata.currentLevel < level - 1) {
+                    // if (userdata.currentLevel < level - 1) {
                         // let formData = new FormData();
                         // formData.append('idGameData', userdata.idGameData);
                         // formData.append('currentLives', extraLives);
@@ -11084,7 +11094,7 @@
                         //     body: formData
                         // };
                         // await fetch(`${URL_OF_BACKEND}/game/saveGameData`, requestOptions);
-                    }
+                    // }
                     switchState(preNewGameState, 60);
 
                 }
