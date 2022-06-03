@@ -4660,12 +4660,13 @@
                         currentLives: extraLives + 1
                     }).then(response => {
                         console.log('# quitgame response => ', response);
-                        userdata.currentLevel = level;
-                        userdata.currentLives = extraLives + 1;
                     }).catch(error => {
                         console.log(error);
                     });
                 }
+
+                userdata.currentLevel = level;
+                userdata.currentLives = extraLives + 1;
 
                 switchState(preNewGameState, 60);
             });
