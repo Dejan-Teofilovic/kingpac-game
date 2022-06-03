@@ -4653,6 +4653,20 @@
                 console.log('# quitgameExtraLives => ', extraLives);
                 console.log('# quitgameLevel => ', level);
 
+                if (userdata.currentLevel < level) {
+                    axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                        idGameData: userdata.idGameData,
+                        currentLevel: level,
+                        currentLives: extraLives + 1
+                    }).then(response => {
+                        console.log('# quitgame response => ', response);
+                        userdata.currentLevel = level;
+                        userdata.currentLives = extraLives + 1;
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }
+
                 switchState(preNewGameState, 60);
             });
             // confirmMenu.disable();
