@@ -11072,7 +11072,7 @@
                     userdata.currentLives = 0;
 
                     switchState(preNewGameState, 60);
-                } 
+                }
                 else {
                     frames++;
                 }
@@ -13507,6 +13507,16 @@
         e.preventDefault();
         console.log('# extralives => ', extraLives);
         console.log('# level => ', level);
+
+        axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+            idGameData: userdata.idGameData,
+            currentLevel: level,
+            currentLives: extraLives + 1
+        }).then(response => {
+            console.log('# response => ', response);
+        }).catch(error => {
+            console.log(error);
+        });
 
         //  Mr.New - Submit current level and extralives.
         //  ...
