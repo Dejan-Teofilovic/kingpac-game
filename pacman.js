@@ -11049,7 +11049,7 @@
                 renderer.drawScore();
                 renderer.drawMessage("GAME  OVER", "#F00", 9, 20);
             },
-            update: async function () {
+            update: function () {
                 if (frames == 120) {
                     //  Mr.New - Game over.
                     console.log('# gameoverExtraLives => ', extraLives);
@@ -11058,10 +11058,14 @@
 
                     //  Mr.New -  Submit the current game data
                     if (userdata.currentLevel < level) {
-                        await axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                        axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
                             idGameData: userdata.idGameData,
                             currentLevel: level,
                             currentLives: 0
+                        }).then(response => {
+                            console.log('# response => ', response);
+                        }).catch(error => {
+                            console.log(error);
                         });
                     }
                     userdata.currentLives = 0;
