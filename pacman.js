@@ -45,7 +45,7 @@
     const LOCALSTORAGE_USERDATA = 'kingpacUserdata';
     const INIT_EXTRA_LIVES = 3;
     const URL_OF_SITE = 'https://kingpactoken.com';
-    const URL_OF_BACKEND = 'https://localhost:5000/api';
+    const URL_OF_BACKEND = 'https://kingpactoken.com/api';
     const CHANNEL_NAME = 'kingpac';
     const SCAN_API_KEY = 'MQPQP1JFJXGA72RYM5SRSR45YBDBZ7ADXX';
     const TOKEN_CONTRACT_ADDRESS = '0xe705c3f34bbf38e1e298b65a7668fd5d9cdc0816';
@@ -11055,22 +11055,20 @@
                     console.log('# gameoverExtraLives => ', extraLives);
                     console.log('# gameoverLevel => ', level);
 
-                    //  Mr.New -  Submit the current game info to backend
-                    let requestOptions = {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            currentLives: extraLives,
-                            currentLevel: level - 1
-                        })
-                    };
-
                     //  Mr.New -  Submit the current game data
-                    await fetch(`${URL_OF_BACKEND}/${userdata.idGameData}`, requestOptions);
+                    if (userdata.currentLevel < level) {
+                        await axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                            idGameData: userdata.idGameData,
+                            currentLevel: level,
+                            currentLives: 0
+                        });
+                    }
+
+                    userdata.currentLives = 0;
 
                     //  Mr.New -  Init the lives and level
-                    newGameState.setStartLevel(1);
-                    newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
+                    // newGameState.setStartLevel(1);
+                    // newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
 
                     switchState(preNewGameState, 60);
                 }
