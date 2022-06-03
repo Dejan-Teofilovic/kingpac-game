@@ -13503,11 +13503,11 @@
     });
 
     //  Mr.New - Before closing the current tab or window
-    window.addEventListener('beforeunload', function (e) {
-        e.preventDefault();
-        console.log('# extralives => ', extraLives);
-        console.log('# level => ', level);
+    // window.addEventListener('beforeunload', function (e) {
+    //     e.preventDefault();
+    //     console.log('# extralives => ', extraLives);
+    //     console.log('# level => ', level);
 
-        e.returnValue = "Your current data won't be stored. Are you gonna really leave this site?";
-    });
+    //     e.returnValue = "Your current data won't be stored. Are you gonna really leave this site?";
+    // });
 })();
