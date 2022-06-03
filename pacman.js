@@ -11072,7 +11072,7 @@
                     userdata.currentLives = 0;
 
                     switchState(preNewGameState, 60);
-                }
+                } 
                 else {
                     frames++;
                 }
