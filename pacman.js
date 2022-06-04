@@ -13461,16 +13461,6 @@
     //////////////////////////////////////////////////////////////////////////////////////
     // Entry Point
 
-    var parseJwt = token => {
-        let base64Url = token.split('.')[1];
-        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-
-        return JSON.parse(jsonPayload);
-    };
-
     window.addEventListener("load", async () => {
         //  Mr.New - Open window
         console.log('# load event');
@@ -13481,26 +13471,14 @@
             let accessToken = params.get('access_token');
             console.log('# accessToken => ', accessToken);
 
-            //  Decode the access token
-            // let decoded = await parseJwt(accessToken);
-            // console.log('# decoded => ', decoded);
-
-            //  Check whether the access token is expired or not.
-            // let currentTime = Date.now() / 1000;
-            // console.log('# decoded.exp => ', decoded.exp);
-            // console.log('# currentTime => ', currentTime);
-
             await axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
                 .then(async response => {
-                    console.log('# response => ', response);
                     userdata = response.data.userdata;
 
-                    console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
                     //  Get current balance of token
                     let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
 
                     let balance = Number(result) * 10 ** -18;
-                    console.log('# balance => ', balance);
 
                     //  Check whether current token balance is enough or not.
                     if (balance >= TOKEN_AMOUNT) {
@@ -13514,21 +13492,13 @@
                         switchState(preNewGameState);
                         executive.init();
                     } else {
-                        console.log('window.location.href = URL_OF_SITE;');
-                        // window.location.href = URL_OF_SITE;
+                        window.location.href = URL_OF_SITE;
                     }
                 })
                 .catch(error => {
                     console.log('# error => ', error);
-                    console.log('window.location.href = URL_OF_SITE;');
-                    // window.location.href = URL_OF_SITE;
+                    window.location.href = URL_OF_SITE;
                 });
-            // if (decoded.exp < currentTime) {
-            //     //  If expired, redirect to the site
-            //     window.location.href = URL_OF_SITE;
-            // } else {
-
-            // }
         }
     });
 
