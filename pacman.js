@@ -13490,7 +13490,7 @@
             // console.log('# decoded.exp => ', decoded.exp);
             // console.log('# currentTime => ', currentTime);
 
-            axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
+            await axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
                 .then(response => {
                     console.log('# response => ', response);
                     userdata = response.userdata;
