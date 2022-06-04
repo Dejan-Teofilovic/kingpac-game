@@ -13491,13 +13491,13 @@
             // console.log('# currentTime => ', currentTime);
 
             await axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
-                .then(response => {
+                .then(async response => {
                     console.log('# response => ', response);
                     userdata = response.userdata;
 
                     console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
                     //  Get current balance of token
-                    let { result } = await(await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
+                    let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
 
                     let balance = Number(result);
                     console.log('# balance => ', balance);
