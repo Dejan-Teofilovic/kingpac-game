@@ -4650,23 +4650,23 @@
             showConfirm("QUIT GAME?", function () {
                 //  Mr.New - Quit game
                 //  ...
-                console.log('# quitgameExtraLives => ', extraLives);
-                console.log('# quitgameLevel => ', level);
+                console.log('# quitGameExtraLives => ', extraLives);
+                console.log('# quitGameLevel => ', level);
 
-                // if (userdata.currentLevel < level) {
-                //     axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
-                //         idGameData: userdata.idGameData,
-                //         currentLevel: level,
-                //         currentLives: extraLives + 1
-                //     }).then(response => {
-                //         console.log('# quitgame response => ', response);
-                //     }).catch(error => {
-                //         console.log(error);
-                //     });
-                // } 
+                //  Submit current level and lives to server
+                axios.post(`${URL_OF_BACKEND}/game/saveGameData`, {
+                    idGameData: userdata.idGameData,
+                    currentLevel: level,
+                    currentLives: extraLives + 1
+                }).then(response => {
+                    console.log('# quitGame response => ', response);
+                }).catch(error => {
+                    console.log(error);
+                });
 
-                // userdata.currentLevel = level;
-                // userdata.currentLives = extraLives + 1;
+                //  Update userdata
+                userdata.currentLevel = level;
+                userdata.currentLives = extraLives + 1;
 
                 switchState(preNewGameState, 60);
             });
