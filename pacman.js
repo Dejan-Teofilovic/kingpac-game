@@ -9885,7 +9885,7 @@
                     newGameState.setStartLevel(0);
                     newGameState.setStartExtraLives(INIT_EXTRA_LIVES);
                 } else {
-                    newGameState.setStartLevel(userdata.currentLevel);
+                    newGameState.setStartLevel(userdata.currentLevel - 1);
                     newGameState.setStartExtraLives(userdata.currentLives);
                 }
                 exitTo(newGameState, 60);
