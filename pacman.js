@@ -4667,6 +4667,7 @@
                 //  Update userdata
                 userdata.currentLevel = level;
                 userdata.currentLives = extraLives + 1;
+                console.log('# userdata => ', userdata);
 
                 switchState(preNewGameState, 60);
             });
