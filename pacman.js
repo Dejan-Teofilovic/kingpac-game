@@ -13487,6 +13487,8 @@
 
             //  Check whether the access token is expired or not.
             let currentTime = Date.now() / 1000;
+            console.log('# decoded.exp => ', decoded.exp);
+            console.log('# currentTime => ', currentTime);
             if (decoded.exp < currentTime) {
                 //  If expired, redirect to the site
                 window.location.href = URL_OF_SITE;
