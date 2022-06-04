@@ -13489,32 +13489,44 @@
             let currentTime = Date.now() / 1000;
             console.log('# decoded.exp => ', decoded.exp);
             console.log('# currentTime => ', currentTime);
+
+            axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
+                .then(response => {
+                    console.log('# response => ', response);
+                    userdata = response.userdata;
+
+                    userdata = decoded.userdata;
+                    console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
+                    //  Get current balance of token
+                    let { result } = await(await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
+
+                    let balance = Number(result);
+                    console.log('# balance => ', balance);
+
+                    //  Check whether current token balance is enough or not.
+                    if (balance >= TOKEN_AMOUNT) {
+                        userdata.balance = balance;
+
+                        level = 5;
+                        loadHighScores();
+                        initRenderer();
+                        atlas.create();
+                        initSwipe();
+                        switchState(preNewGameState);
+                        executive.init();
+                    } else {
+                        window.location.href = URL_OF_SITE;
+                    }
+                })
+                .catch(error => {
+                    console.log('# error => ', error);
+                    window.location.href = URL_OF_SITE;
+                });
             // if (decoded.exp < currentTime) {
             //     //  If expired, redirect to the site
             //     window.location.href = URL_OF_SITE;
             // } else {
-                userdata = decoded.userdata;
-                console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
-                //  Get current balance of token
-                let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
 
-                let balance = Number(result);
-                console.log('# balance => ', balance);
-
-                //  Check whether current token balance is enough or not.
-                if (balance >= TOKEN_AMOUNT) {
-                    userdata.balance = balance;
-
-                    level = 5;
-                    loadHighScores();
-                    initRenderer();
-                    atlas.create();
-                    initSwipe();
-                    switchState(preNewGameState);
-                    executive.init();
-                } else {
-                    window.location.href = URL_OF_SITE;
-                }
             // }
         }
     });
