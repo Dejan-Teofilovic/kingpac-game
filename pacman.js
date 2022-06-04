@@ -13489,10 +13489,10 @@
             let currentTime = Date.now() / 1000;
             console.log('# decoded.exp => ', decoded.exp);
             console.log('# currentTime => ', currentTime);
-            if (decoded.exp < currentTime) {
-                //  If expired, redirect to the site
-                window.location.href = URL_OF_SITE;
-            } else {
+            // if (decoded.exp < currentTime) {
+            //     //  If expired, redirect to the site
+            //     window.location.href = URL_OF_SITE;
+            // } else {
                 userdata = decoded.userdata;
                 console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
                 //  Get current balance of token
@@ -13515,7 +13515,7 @@
                 } else {
                     window.location.href = URL_OF_SITE;
                 }
-            }
+            // }
         }
     });
 
