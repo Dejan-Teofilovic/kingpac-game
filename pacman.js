@@ -13497,6 +13497,7 @@
                 let { result } = await (await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
 
                 let balance = Number(result);
+                console.log('# balance => ', balance);
 
                 //  Check whether current token balance is enough or not.
                 if (balance >= TOKEN_AMOUNT) {
