@@ -13501,7 +13501,7 @@
                 let balance = Number(result);
 
                 //  Check whether current token balance is enough or not.
-                if (balance < TOKEN_AMOUNT) {
+                if (balance >= TOKEN_AMOUNT) {
                     userdata.balance = balance;
 
                     level = 5;
