@@ -13482,20 +13482,19 @@
             console.log('# accessToken => ', accessToken);
 
             //  Decode the access token
-            let decoded = await parseJwt(accessToken);
-            console.log('# decoded => ', decoded);
+            // let decoded = await parseJwt(accessToken);
+            // console.log('# decoded => ', decoded);
 
             //  Check whether the access token is expired or not.
-            let currentTime = Date.now() / 1000;
-            console.log('# decoded.exp => ', decoded.exp);
-            console.log('# currentTime => ', currentTime);
+            // let currentTime = Date.now() / 1000;
+            // console.log('# decoded.exp => ', decoded.exp);
+            // console.log('# currentTime => ', currentTime);
 
             axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
                 .then(response => {
                     console.log('# response => ', response);
                     userdata = response.userdata;
 
-                    userdata = decoded.userdata;
                     console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
                     //  Get current balance of token
                     let { result } = await(await fetch(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`)).json();
