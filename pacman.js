@@ -13493,7 +13493,7 @@
             await axios.get(`${URL_OF_BACKEND}/game/getUserdataFromAccessToken/${accessToken}`)
                 .then(async response => {
                     console.log('# response => ', response);
-                    userdata = response.userdata;
+                    userdata = response.data.userdata;
 
                     console.log(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${TOKEN_CONTRACT_ADDRESS}&address=${userdata.walletAddress}&tag=latest&apikey=${SCAN_API_KEY}`);
                     //  Get current balance of token
