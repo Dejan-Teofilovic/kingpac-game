@@ -13461,9 +13461,26 @@
     //////////////////////////////////////////////////////////////////////////////////////
     // Entry Point
 
+    const disableScroll = () => {
+        // Get the current page scroll position
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+        // if any scroll is attempted,
+        // set this to the previous value
+        window.onscroll = function () {
+            window.scrollTo(scrollLeft, scrollTop);
+        };
+    };
+
+    const enableScroll = () => {
+        window.onscroll = function () { };
+    };
+
     window.addEventListener("load", async () => {
         //  Mr.New - Open window
         console.log('# load event');
+        disableScroll();
         let paramsMatch = window.location.href.match(/\?.+/);
         if (paramsMatch) {
             //  Get access token
@@ -13499,6 +13516,8 @@
                     console.log('# error => ', error);
                     window.location.href = URL_OF_SITE;
                 });
+        } else {
+            window.location.href = URL_OF_SITE;
         }
     });
 
