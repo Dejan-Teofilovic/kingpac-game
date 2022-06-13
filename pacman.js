@@ -13463,8 +13463,8 @@
 
     const disableScroll = () => {
         // Get the current page scroll position
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft;
 
         // if any scroll is attempted,
         // set this to the previous value
